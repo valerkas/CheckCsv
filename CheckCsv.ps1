@@ -7,7 +7,7 @@ $LineNumber = 1;
 [bool] $wasError = $false;
 $inData = New-Object System.IO.StreamReader($Path)
 
-
+$startTime = (Get-Date).Minute;
 while ($line = $inData.ReadLine())
 {
     if ($LineNumber -eq 1) 
@@ -35,13 +35,15 @@ while ($line = $inData.ReadLine())
     $LineNumber += 1    
 }
 
+$stopTime = (Get-Date).Minute;
+$duration = $stopTime - $startTime
 If ($wasError)
 {
-    Write-Host "Processing complete." -ForegroundColor red
+    Write-Host "Processing complete in $duration minutes." -ForegroundColor red
 }
 else
 {
-    Write-Host "Processing complete." -ForegroundColor Green
+    Write-Host "Processing complete in $duration minutes." -ForegroundColor Green
 }
 
 $inData.Dispose()
